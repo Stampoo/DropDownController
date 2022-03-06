@@ -14,6 +14,7 @@ public protocol DropDownControllerProtocol {
     
     var dropDownAdapter: Adapter { get }
     var containerView: UIView { get }
+    var animationDuration: TimeInterval { get set }
     
     init(adapter: Adapter)
     

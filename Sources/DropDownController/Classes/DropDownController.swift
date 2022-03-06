@@ -17,6 +17,7 @@ open class DropDownController: DropDownControllerProtocol {
     
     public var dropDownAdapter: DropDownTableAdapter
     public var containerView: UIView
+    public var animationDuration: TimeInterval = 0.3
     
     // MARK: - Private properties
     
@@ -61,12 +62,11 @@ open class DropDownController: DropDownControllerProtocol {
             return
         }
         isHideAnimtaionInProcess = true
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: animationDuration) {
             self.containerView.frame.size = CGSize(width: self.containerView.frame.width, height: .zero)
             self.containerView.layoutIfNeeded()
         } completion: { _ in
             self.isHideAnimtaionInProcess = false
-            self.removeOldDependencies()
         }
     }
     
@@ -108,7 +108,7 @@ open class DropDownController: DropDownControllerProtocol {
     
     private func updateContainerSizeWithAnimate(_ newSize: CGSize) {
         containerView.frame.size = CGSize(width: newSize.width, height: newSize.height)
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: animationDuration) {
             self.containerView.layoutIfNeeded()
         } completion: { _ in
             self.isShowAnimationInProcess = false
