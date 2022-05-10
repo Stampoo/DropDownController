@@ -1,32 +1,28 @@
 ### DropDownController
 
-<details>
-<summary>Usage example:</summary>
-  
+Simple view with custom content and animation like drop-down list
+
+### Example:
+
+<img src="https://user-images.githubusercontent.com/44356536/156922800-0af5386b-8f8c-4197-9610-e72abc387237.gif" width="29%" height="29%"/>
+
+### How usage:
+
+1. Create instanse of controller on drop-down content and adapter
+
 ```swift
 final class ExampleDropListViewController: UIViewController {
     
     private let filterView = FilterView()
     private let dropDownTableAdapter = DropDownTableAdapter()
     private lazy var dropDownController = DropDownController(adapter: dropDownTableAdapter)
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(filterView)
-        layout()
-        filterView.onDidTouchTriggered { isOpen in
-            if isOpen {
-                self.dropDownTableAdapter.injectContentAdapter(self.getAdapter(for:))
-                self.dropDownController.showDropDownList(below: self.filterView, offset: 8)
-            } else {
-                self.dropDownController.hideDropDonwList()
-            }
-        }
-    }
-    
-    // Content can be anything, create your content adapter and sign with DropDownAdapterProtocol
-    private func getAdapter(for table: UITableView) -> AnyObject {
+``` 
+
+2. Create content adapter(for `UITableView` in example)
+
+```swift
+   // Content can be anything, create your content adapter and sign with DropDownAdapterProtocol
+   private func getAdapter(for table: UITableView) -> AnyObject {
         table.backgroundColor = .black
         table.layer.cornerRadius = 12
         table.separatorStyle = .none
@@ -40,15 +36,17 @@ final class ExampleDropListViewController: UIViewController {
         adapter.append(cellController: cellController)
         return adapter
     }
-    
+```
+
+3. Inject adapter with custom content
+
+```swift
+filterView.onDidTouchTriggered { isOpen in
+    if isOpen {
+        self.dropDownTableAdapter.injectContentAdapter(self.getAdapter(for:))
+        self.dropDownController.showDropDownList(below: self.filterView, offset: 8)
+    } else {
+        self.dropDownController.hideDropDonwList()
+    }
 }
 ```
-  
-</details>
-
-<details>
-<summary>Work example:</summary>
-  
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/44356536/156922800-0af5386b-8f8c-4197-9610-e72abc387237.gif)
-  
-</details>
